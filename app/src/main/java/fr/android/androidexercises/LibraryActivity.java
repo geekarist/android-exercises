@@ -23,16 +23,14 @@ public class LibraryActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        // TODO save message
-
+        outState.putString("message", messageEditText.getText().toString());
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-
-        // TODO restore message
+        messageEditText.setText(savedInstanceState.getString("message"));
     }
 
     @Override
