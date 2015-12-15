@@ -1,5 +1,6 @@
 package fr.android.androidexercises;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,11 @@ import java.util.List;
 
 public class BookListAdapter extends BaseAdapter {
     private final List<Book> mBookList;
+    private LayoutInflater inflater;
 
-    public BookListAdapter(List<Book> books) {
+    public BookListAdapter(List<Book> books, Context context) {
         mBookList = books;
+        inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -34,7 +37,7 @@ public class BookListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_view, parent, false);
+            convertView = inflater.inflate(R.layout.book_view, parent, false);
         }
         Book book = mBookList.get(position);
         BookView bookView = (BookView) convertView;
