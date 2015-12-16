@@ -62,4 +62,12 @@ public class LibraryActivity extends AppCompatActivity
                 .addToBackStack(mCurrentFragmentTag)
                 .commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        if (Step2Fragment.class.getSimpleName().equals(mCurrentFragmentTag)) {
+            mCurrentFragmentTag = Step1Fragment.class.getSimpleName();
+        }
+        super.onBackPressed();
+    }
 }
