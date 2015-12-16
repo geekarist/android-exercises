@@ -13,6 +13,7 @@ public class LoginActivity extends AppCompatActivity {
     View loggedText;
     LoginPresenter presenter;
     EditText passwordEdit;
+    View loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,8 @@ public class LoginActivity extends AppCompatActivity {
 
         presenter = new LoginPresenter(this);
 
-        findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
+        loginButton = findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.checkCredentials(passwordEdit.getText().toString());
