@@ -2,7 +2,11 @@ package fr.android.androidexercises;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -12,6 +16,8 @@ import retrofit.Retrofit;
 import timber.log.Timber;
 
 public class LibraryActivity extends AppCompatActivity {
+
+    private ArrayList<Book> mBooks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +39,11 @@ public class LibraryActivity extends AppCompatActivity {
 
         // listBooks()
         // enqueue call and display book title
+        mBooks = new ArrayList<>();
         henriPotierService.listBooks().enqueue(new Callback<List<Book>>() {
             @Override
             public void onResponse(Response<List<Book>> response, Retrofit retrofit) {
-                List<Book> books = response.body();
-                // log books
-                for (Book b : books) {
-                    Timber.d(b.getTitle());
-                }
+                mBooks.addAll(response.body());
             }
 
             @Override
@@ -50,6 +53,9 @@ public class LibraryActivity extends AppCompatActivity {
         });
 
         // TODO display book as a list
+        ListView bookListView = (ListView) findViewById(R.id.bookListView);
+        BookListAdapter bookListAdapter = new BookListAdapter(mBooks);
+        bookListView.setAdapter(bookListAdapter);
     }
 
 }
